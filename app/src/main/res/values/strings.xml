@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HabitTrackerApp</string>
+    <string name="timeTitle">Select Title</string>
+    <string name="emptyList">List Empty</string>
+    <string name="time">time</string>
+    <string name="date">date</string>
+    <string name="message">Message :</string>
+</resources>
