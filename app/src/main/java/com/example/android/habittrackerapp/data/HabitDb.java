@@ -96,11 +96,15 @@ public class HabitDb extends SQLiteOpenHelper {
 
         SQLiteDatabase db = mHabit.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + HabitEntry.TABLE_NAME, null);
+        String[] projection = {
+                HabitEntry._ID,
+                HabitEntry.COLUMN_HABIT_DATE,
+                HabitEntry.COLUMN_HABIT_MESSAGE,
+                HabitEntry.COLUMN_HABIT_HOUR,
+                HabitEntry.COLUMN_HABIT_REPEAT};
 
-        if (cursor.moveToFirst()) {
-            return cursor;
-        }
-        return null;
+        Cursor cursor = db.query(HabitEntry.TABLE_NAME, projection, null, null, null, null, null);
+
+        return cursor;
     }
 }

@@ -15,6 +15,8 @@ import com.example.android.habittrackerapp.data.HabitDb;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.internal.ListenerClass;
+
 public class MainActivity extends AppCompatActivity {
 
     public List<Habit> mListHabit;
@@ -47,10 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         mListHabit = new ArrayList<>();
 
-        if (cursor == null) {
-            empty = (TextView) findViewById(R.id.empty);
-            empty.setText(R.string.emptyList);
-        } else {
+
+        if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 Habit habit = new Habit();
                 habit.setDate(cursor.getString(1));
@@ -62,17 +62,19 @@ public class MainActivity extends AppCompatActivity {
                 cursor.moveToNext();
             }
         }
+        empty = (TextView) findViewById(R.id.empty);
 
-        if (mListHabit != null) {
+        if (mListHabit.size() > 0) {
 
             HabitAdapter mAdapter = new HabitAdapter(this, 0, mListHabit);
 
             habitListView = (ListView) findViewById(R.id.list);
 
             habitListView.setAdapter(mAdapter);
+            empty.setVisibility(View.GONE);
         } else {
-            empty = (TextView) findViewById(R.id.empty);
             empty.setText(R.string.emptyList);
+            empty.setVisibility(View.VISIBLE);
         }
     }
 }
