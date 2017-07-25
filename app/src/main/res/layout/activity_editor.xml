@@ -20,9 +20,11 @@
         android:layout_toRightOf="@+id/message" />
 
     <LinearLayout
+        android:id="@+id/butt"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/editMessage">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editMessage"
+        android:layout_marginBottom="@dimen/margin">
 
         <Button
             android:id="@+id/date"
@@ -41,4 +43,19 @@
             android:text="@string/time" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/repeat"
+        android:layout_below="@id/butt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/repeat"
+        android:layout_marginTop="@dimen/repeat" />
+
+    <CheckBox
+        android:id="@+id/repeatBox"
+        android:layout_below="@id/butt"
+        android:layout_toRightOf="@id/repeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

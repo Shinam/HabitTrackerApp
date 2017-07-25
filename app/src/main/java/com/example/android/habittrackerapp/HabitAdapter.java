@@ -39,6 +39,11 @@ public class HabitAdapter extends ArrayAdapter<Habit> {
         holder.date.setText(currentHabit.getDate().toString() + ", " + currentHabit.getHours());
         holder.message.setText(currentHabit.getMessage());
 
+        if (currentHabit.getRepeat() == 1) {
+            holder.repeat.setText("Yes");
+        } else
+            holder.repeat.setText("No");
+
         return convertView;
     }
 
@@ -47,6 +52,8 @@ public class HabitAdapter extends ArrayAdapter<Habit> {
         TextView date;
         @BindView(R.id.message)
         TextView message;
+        @BindView(R.id.repeatValue)
+        TextView repeat;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

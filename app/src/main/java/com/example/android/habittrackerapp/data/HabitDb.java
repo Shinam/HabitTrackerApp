@@ -29,7 +29,7 @@ public class HabitDb extends SQLiteOpenHelper {
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private Context context;
 
     /**
@@ -50,9 +50,10 @@ public class HabitDb extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String SQL_CREATE_PETS_TABLE = "CREATE TABLE " + HabitEntry.TABLE_NAME + " ("
                 + HabitEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + HabitEntry.COLUMN_HABIT_DATE + " TEXT, "
+                + HabitEntry.COLUMN_HABIT_DATE + " TEXT NOT NULL, "
                 + HabitEntry.COLUMN_HABIT_MESSAGE + " TEXT, "
-                + HabitEntry.COLUMN_HABIT_HOUR + " TEXT);";
+                + HabitEntry.COLUMN_HABIT_HOUR + " TEXT NOT NULL, "
+                + HabitEntry.COLUMN_HABIT_REPEAT + " INTEGER NOT NULL DEFAULT 0);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_PETS_TABLE);
@@ -63,7 +64,8 @@ public class HabitDb extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // The database is still at version 1, so there's nothing to do be done here.
+        db.execSQL("DROP TABLE IF EXISTS " + HabitEntry.TABLE_NAME);
+        onCreate(db);
     }
 
     public void insertHabit(Habit habit) {
@@ -76,6 +78,7 @@ public class HabitDb extends SQLiteOpenHelper {
         values.put(HabitEntry.COLUMN_HABIT_DATE, habit.getDate());
         values.put(HabitEntry.COLUMN_HABIT_MESSAGE, habit.getMessage());
         values.put(HabitEntry.COLUMN_HABIT_HOUR, habit.getHours());
+        values.put(HabitEntry.COLUMN_HABIT_REPEAT, habit.getRepeat());
 
         long newRowId = db.insert(HabitEntry.TABLE_NAME, null, values);
 
@@ -88,28 +91,16 @@ public class HabitDb extends SQLiteOpenHelper {
         }
     }
 
-    public List<Habit> readHabit() {
+    public Cursor readHabit() {
         HabitDb mHabit = new HabitDb(context);
 
         SQLiteDatabase db = mHabit.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + HabitEntry.TABLE_NAME, null);
 
-
-        List<Habit> listName = new ArrayList<>();
-
         if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                Habit habit = new Habit();
-                habit.setDate(cursor.getString(1));
-                habit.setMessage(cursor.getString(2));
-                habit.setHours(cursor.getString(3));
-
-                listName.add(habit);
-                cursor.moveToNext();
-            }
-        } else
-            return null;
-        return listName;
+            return cursor;
+        }
+        return null;
     }
 }

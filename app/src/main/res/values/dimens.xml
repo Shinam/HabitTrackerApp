@@ -4,4 +4,5 @@
     <dimen name="weightwidth">0dp</dimen>
     <dimen name="margin">16dp</dimen>
     <dimen name="center">12dp</dimen>
+    <dimen name="repeat">8dp</dimen>
 </resources>

@@ -9,11 +9,13 @@ public class Habit {
     public String date;
     public String message;
     public String hours;
+    public int repeat;
 
-    public Habit(String date, String message, String hours) {
+    public Habit(String date, String message, String hours, int repeat) {
         this.date = date;
         this.message = message;
         this.hours = hours;
+        this.repeat = repeat;
     }
 
     public Habit() {
@@ -41,5 +43,13 @@ public class Habit {
 
     public void setHours(String hours) {
         this.hours = hours;
+    }
+
+    public int getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(int repeat) {
+        this.repeat = repeat;
     }
 }

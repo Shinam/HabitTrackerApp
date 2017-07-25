@@ -15,15 +15,15 @@ public final class HabitContract {
 
         public final static String TABLE_NAME = "habits";
 
-
         public final static String _ID = BaseColumns._ID;
-
 
         public final static String COLUMN_HABIT_DATE = "date";
 
         public final static String COLUMN_HABIT_MESSAGE = "message";
 
         public final static String COLUMN_HABIT_HOUR = "hour";
+
+        public final static String COLUMN_HABIT_REPEAT = "repeat";
     }
 
 }

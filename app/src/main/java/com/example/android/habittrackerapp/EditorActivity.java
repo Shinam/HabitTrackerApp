@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -30,6 +31,8 @@ public class EditorActivity extends AppCompatActivity {
     private String message;
     public Habit habit;
     public String timeString;
+    private CheckBox repeat;
+    private int myInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,9 +108,11 @@ public class EditorActivity extends AppCompatActivity {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save pet to database
+                repeat = (CheckBox) findViewById(R.id.repeatBox);
+                myInt = (repeat.isChecked()) ? 1 : 0;
                 EditText eMessage = (EditText) findViewById(R.id.editMessage);
                 message = eMessage.getText().toString();
-                habit = new Habit(dateString, message, timeString);
+                habit = new Habit(dateString, message, timeString, myInt);
                 mHabitDb.insertHabit(habit);
                 // Exit activity
                 finish();
